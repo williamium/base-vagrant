@@ -1,0 +1,1 @@
+If there's a SQL file in here, it will be used to create a database automatically on the Vagrant box. It will take the same name as the file e.g if the SQL file is called example_app.sql the database will be called example_app.

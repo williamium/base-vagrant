@@ -1,0 +1,1 @@
+This folder is intended to be used for storing SQL dumps from your Vagrant box.

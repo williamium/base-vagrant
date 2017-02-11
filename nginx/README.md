@@ -1,0 +1,1 @@
+The Nginx config file here will be copied over to the Vagrant box to enable a new host.
