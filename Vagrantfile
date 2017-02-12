@@ -15,6 +15,7 @@ guest_projects_dir = "/home/vagrant/sites"
 #   192.168.0.1 - 192.168.255.254
 server_ip       = "192.168.18.73"
 server_cpus     = "2"   # Cores
+# MariaDB may throw errors during "vagrant up" with less than 1024MB memory
 server_memory   = "384" # MB
 server_timezone = "Europe/London"
 
@@ -25,6 +26,7 @@ locale_codeset  = "en_GB.UTF-8"
 # Database Configuration
 mysql_root_password = "root" # We'll assume user "root"
 mysql_version       = "5.6"  # Options: 5.5 | 5.6
+mariadb_version     = "10.1" # Options: 10.0 | 10.1
 mysql_enable_remote = "true" # remote access enabled when true
 
 # Languages and Packages
@@ -124,7 +126,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "scripts/mysql.sh", args: [mysql_root_password, mysql_version, mysql_enable_remote, guest_projects_dir]
 
   # Provision MariaDB
-  # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [mysql_root_password, mysql_enable_remote, guest_projects_dir]
+  # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [mysql_root_password, mariadb_version, mysql_enable_remote, guest_projects_dir]
 
 
   ####
