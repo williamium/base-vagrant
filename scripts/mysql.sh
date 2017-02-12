@@ -9,15 +9,9 @@ printf "\n\nInstalling MySQL server ($2)...\n"
 # See http://dev.mysql.com/downloads/repo/apt/ for the repo to add on a real server
 # The matching guide here: https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
 # A tutorial here: http://www.devopsservice.com/installation-of-mysql-server-5-7-on-ubuntu-14-04/
-mysql_package=mysql-server
+mysql_package=mysql-server-5.5
 
 if [ $2 == "5.6" ]; then
-    # Add repo for MySQL 5.6
-    sudo add-apt-repository -y ppa:ondrej/mysql-5.6
-
-    # Update Again
-    sudo apt-get update
-
     # Change package
     mysql_package=mysql-server-5.6
 fi
@@ -27,6 +21,7 @@ fi
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $1"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $1"
 
+sudo apt-get update
 sudo apt-get install -y $mysql_package
 
 # Make MySQL connectable from outside world without SSH tunnel
@@ -39,13 +34,11 @@ if [ $3 == "true" ]; then
 
     # adding grant privileges to mysql root user from everywhere
     # thx to http://stackoverflow.com/questions/7528967/how-to-grant-mysql-privileges-in-a-bash-script for this
-    MYSQL=`which mysql`
-
     Q1="GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$1' WITH GRANT OPTION;"
     Q2="FLUSH PRIVILEGES;"
     SQL="${Q1}${Q2}"
 
-    $MYSQL -uroot -p$1 -e "$SQL"
+    mysql -uroot -p$1 -e "$SQL"
 fi
 
 sudo service mysql restart
@@ -61,8 +54,8 @@ for path in $4/*; do
             # Convert any . (dots) in the filename to underscores (you can't have dots in a database name)
             db_name=${filename//./_}
 
-            $MYSQL -uroot -p$1 -e "CREATE DATABASE IF NOT EXISTS $db_name"
-            $MYSQL -uroot -p$1 $filename < ${path}"/vagrant/db/init/"$filename.sql
+            mysql -uroot -p$1 -e "CREATE DATABASE IF NOT EXISTS $db_name"
+            mysql -uroot -p$1 $filename < ${path}"/vagrant/db/init/"$filename.sql
 
             printf "Database created & imported for $dirname...\n"
         else
