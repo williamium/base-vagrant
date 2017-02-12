@@ -34,13 +34,11 @@ if [ $3 == "true" ]; then
 
     # adding grant privileges to mysql root user from everywhere
     # thx to http://stackoverflow.com/questions/7528967/how-to-grant-mysql-privileges-in-a-bash-script for this
-    MYSQL=`which mysql`
-
     Q1="GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$1' WITH GRANT OPTION;"
     Q2="FLUSH PRIVILEGES;"
     SQL="${Q1}${Q2}"
 
-    $MYSQL -uroot -p$1 -e "$SQL"
+    mysql -uroot -p$1 -e "$SQL"
 fi
 
 sudo service mysql restart
@@ -56,8 +54,8 @@ for path in $4/*; do
             # Convert any . (dots) in the filename to underscores (you can't have dots in a database name)
             db_name=${filename//./_}
 
-            $MYSQL -uroot -p$1 -e "CREATE DATABASE IF NOT EXISTS $db_name"
-            $MYSQL -uroot -p$1 $filename < ${path}"/vagrant/db/init/"$filename.sql
+            mysql -uroot -p$1 -e "CREATE DATABASE IF NOT EXISTS $db_name"
+            mysql -uroot -p$1 $filename < ${path}"/vagrant/db/init/"$filename.sql
 
             printf "Database created & imported for $dirname...\n"
         else
