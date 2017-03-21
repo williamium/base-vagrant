@@ -14,15 +14,15 @@ sudo apt-get update
 if [ $2 == "5.6" ]; then
     php_service="php5.6-fpm"
     php_path="/etc/php/5.6"
-    sudo apt-get install -y php5.6-cli php5.6-fpm php5.6-common php5.6-imap php5.6-json php5.6-mcrypt php5.6-curl php5.6-mysqlnd php5.6-gd php5.6-imagick php5.6-memcached php5.6-intl php5.6-xdebug
+    sudo apt-get install -y php5.6-cli php5.6-fpm php5.6-common php5.6-imap php5.6-json php5.6-xml php5.6-mcrypt php5.6-curl php5.6-mysqlnd php5.6-gd php5.6-imagick php5.6-memcached php5.6-intl php5.6-xdebug
 elif [ $2 == "7.0" ]; then
     php_service="php7.0-fpm"
     php_path="/etc/php/7.0"
-    sudo apt-get install -y php7.0-cli php7.0-fpm php7.0-common php7.0-imap php7.0-json php7.0-mcrypt php7.0-curl php7.0-mysqlnd php7.0-gd php7.0-imagick php7.0-memcached php7.0-intl php7.0-xdebug
+    sudo apt-get install -y php7.0-cli php7.0-fpm php7.0-common php7.0-imap php7.0-json php7.0-xml php7.0-mcrypt php7.0-curl php7.0-mysqlnd php7.0-gd php7.0-imagick php7.0-memcached php7.0-intl php7.0-xdebug
 elif [ $2 == "7.1" ]; then
     php_service="php7.1-fpm"
     php_path="/etc/php/7.1"
-    sudo apt-get install -y php7.1-cli php7.1-fpm php7.1-common php7.1-imap php7.1-json php7.1-mcrypt php7.1-curl php7.1-mysqlnd php7.1-gd php7.1-imagick php7.1-memcached php7.1-intl php7.1-xdebug
+    sudo apt-get install -y php7.1-cli php7.1-fpm php7.1-common php7.1-imap php7.1-json php7.1-xml php7.1-mcrypt php7.1-curl php7.1-mysqlnd php7.1-gd php7.1-imagick php7.1-memcached php7.1-intl php7.1-xdebug
 fi
 
 # php7.1-fpm
