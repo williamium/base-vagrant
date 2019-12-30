@@ -40,8 +40,8 @@ nodejs_packages = [          # List any global NodeJS packages that you want to 
 ]
 
 Vagrant.configure("2") do |config|
-  # Set server to Ubuntu 14.04
-  config.vm.box = "ubuntu/trusty64"
+  # Set server to Ubuntu 18.04
+  config.vm.box = "ubuntu/bionic64"
 
   if Vagrant.has_plugin?("vagrant-hostmanager")
     config.hostmanager.enabled = true
