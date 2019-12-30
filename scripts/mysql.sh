@@ -9,12 +9,7 @@ printf "\n\nInstalling MySQL server ($2)...\n"
 # See http://dev.mysql.com/downloads/repo/apt/ for the repo to add on a real server
 # The matching guide here: https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
 # A tutorial here: http://www.devopsservice.com/installation-of-mysql-server-5-7-on-ubuntu-14-04/
-mysql_package=mysql-server-5.5
-
-if [ $2 == "5.6" ]; then
-    # Change package
-    mysql_package=mysql-server-5.6
-fi
+mysql_package=mysql-server-$2
 
 # Install MySQL without password prompt. Info on unattended install: http://serverfault.com/questions/19367
 # Set username and password

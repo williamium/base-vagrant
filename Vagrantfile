@@ -25,7 +25,7 @@ locale_codeset  = "en_GB.UTF-8"
 
 # Database Configuration
 mysql_root_password = "root" # We'll assume user "root"
-mysql_version       = "5.6"  # Options: 5.5 | 5.6
+mysql_version       = "5.7"  # Options: 5.7
 mariadb_version     = "10.1" # Options: 10.0 | 10.1
 mysql_enable_remote = "true" # remote access enabled when true
 
