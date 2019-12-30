@@ -7,6 +7,8 @@ printf "\n\nInstalling Nginx...\n"
 php -v > /dev/null 2>&1
 PHP_IS_INSTALLED=$?
 
+php_service="php$3-fpm"
+
 [[ -z $1 ]] && { echo "!!! IP address not set. Check the Vagrant file.\n"; exit 1; }
 
 # Add repo for latest stable nginx
@@ -58,9 +60,9 @@ done
 
 if [[ $PHP_IS_INSTALLED -eq 0 ]]; then
     # PHP-FPM Config for Nginx
-    sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
+    sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/$3/fpm/php.ini
 
-    sudo service php5-fpm restart
+    sudo service $php_service restart
 fi
 
 sudo service nginx restart

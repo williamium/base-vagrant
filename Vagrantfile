@@ -25,13 +25,13 @@ locale_codeset  = "en_GB.UTF-8"
 
 # Database Configuration
 mysql_root_password = "root" # We'll assume user "root"
-mysql_version       = "5.6"  # Options: 5.5 | 5.6
+mysql_version       = "5.7"  # Options: 5.7
 mariadb_version     = "10.1" # Options: 10.0 | 10.1
 mysql_enable_remote = "true" # remote access enabled when true
 
 # Languages and Packages
 php_timezone = server_timezone # http://php.net/manual/en/timezones.php
-php_version  = "5.6"           # Options: 5.6 | 7.0 | 7.1
+php_version  = "7.4"           # Options: 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4
 
 nodejs_version  = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages = [          # List any global NodeJS packages that you want to install
@@ -40,8 +40,8 @@ nodejs_packages = [          # List any global NodeJS packages that you want to 
 ]
 
 Vagrant.configure("2") do |config|
-  # Set server to Ubuntu 14.04
-  config.vm.box = "ubuntu/trusty64"
+  # Set server to Ubuntu 18.04
+  config.vm.box = "ubuntu/bionic64"
 
   if Vagrant.has_plugin?("vagrant-hostmanager")
     config.hostmanager.enabled = true
@@ -115,7 +115,7 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Provision Nginx Base
-  config.vm.provision "shell", path: "scripts/nginx.sh", args: [server_ip, guest_projects_dir]
+  config.vm.provision "shell", path: "scripts/nginx.sh", args: [server_ip, guest_projects_dir, php_version]
 
 
   ####
