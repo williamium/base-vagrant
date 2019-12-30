@@ -115,7 +115,7 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Provision Nginx Base
-  config.vm.provision "shell", path: "scripts/nginx.sh", args: [server_ip, guest_projects_dir]
+  config.vm.provision "shell", path: "scripts/nginx.sh", args: [server_ip, guest_projects_dir, php_version]
 
 
   ####
