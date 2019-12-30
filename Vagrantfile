@@ -31,7 +31,7 @@ mysql_enable_remote = "true" # remote access enabled when true
 
 # Languages and Packages
 php_timezone = server_timezone # http://php.net/manual/en/timezones.php
-php_version  = "5.6"           # Options: 5.6 | 7.0 | 7.1
+php_version  = "7.4"           # Options: 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4
 
 nodejs_version  = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages = [          # List any global NodeJS packages that you want to install

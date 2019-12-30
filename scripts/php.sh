@@ -11,23 +11,15 @@ sudo add-apt-repository -y ppa:ondrej/php
 sudo apt-key update
 sudo apt-get update
 
-if [ $2 == "5.6" ]; then
-    php_service="php5.6-fpm"
-    php_path="/etc/php/5.6"
-    sudo apt-get install -y php5.6-cli php5.6-fpm php5.6-common php5.6-imap php5.6-json php5.6-xml php5.6-mcrypt php5.6-curl php5.6-mysqlnd php5.6-gd php5.6-imagick php5.6-memcached php5.6-intl php5.6-xdebug
-elif [ $2 == "7.0" ]; then
-    php_service="php7.0-fpm"
-    php_path="/etc/php/7.0"
-    sudo apt-get install -y php7.0-cli php7.0-fpm php7.0-common php7.0-imap php7.0-json php7.0-xml php7.0-mcrypt php7.0-curl php7.0-mysqlnd php7.0-gd php7.0-imagick php7.0-memcached php7.0-intl php7.0-xdebug
-elif [ $2 == "7.1" ]; then
-    php_service="php7.1-fpm"
-    php_path="/etc/php/7.1"
-    sudo apt-get install -y php7.1-cli php7.1-fpm php7.1-common php7.1-imap php7.1-json php7.1-xml php7.1-mcrypt php7.1-curl php7.1-mysqlnd php7.1-gd php7.1-imagick php7.1-memcached php7.1-intl php7.1-xdebug
-fi
+php_service="php$2-fpm"
+php_path="/etc/php/$2"
 
-# php7.1-fpm
-# /etc/php/7.1/{mods-available,fpm,etc}
-# listen = /run/php/php7.1-fpm.sock
+case $2 in
+    "5.6"|"7.0"|"7.1")
+        sudo apt-get install -y php$2-cli php$2-fpm php$2-common php$2-imap php$2-json php$2-zip php$2-mbstring php$2-dom php$2-mcrypt php$2-curl php$2-mysqlnd php$2-gd php$2-imagick php$2-memcached php$2-intl php$2-xdebug;;
+    *)
+        sudo apt-get install -y php$2-cli php$2-fpm php$2-common php$2-imap php$2-json php$2-zip php$2-mbstring php$2-dom php$2-curl php$2-mysqlnd php$2-gd php$2-imagick php$2-memcached php$2-intl php$2-xdebug;;
+esac
 
 ##### PHP Configuration #####
 printf "\n\nPHP configuration...\n"
