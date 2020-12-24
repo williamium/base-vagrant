@@ -2,7 +2,9 @@
 # vi: set ft=ruby :
 
 # Server Configuration
+base_box = "ubuntu/bionic64"
 hostname = "williamium"
+
 # Synced folder
 host_projects_dir  = "P:/Sites"
 guest_projects_dir = "/home/vagrant/sites"
@@ -24,31 +26,19 @@ locale_language = "en_GB"
 locale_codeset  = "en_GB.UTF-8"
 
 # Database Configuration
-mysql_root_password = "root" # We'll assume user "root"
-mysql_version       = "5.7"  # Options: 5.7
-mariadb_version     = "10.1" # Options: 10.0 | 10.1
-mysql_enable_remote = "true" # remote access enabled when true
+mysql_root_password      = "root" # We'll assume user "root"
+mysql_version            = "5.7"  # Options: 5.7
+mariadb_version          = "10.1" # Options: 10.0 | 10.1
+mariadb_ubuntu_code_name = "bionic"
+mysql_enable_remote      = "true" # remote access enabled when true
 
 # Languages and Packages
 php_timezone = server_timezone # http://php.net/manual/en/timezones.php
 php_version  = "7.4"           # Options: 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4
 
-nodejs_version  = "latest"   # By default "latest" will equal the latest stable version
-nodejs_packages = [          # List any global NodeJS packages that you want to install
-  #"gulp",
-  #"bower",
-]
-
 Vagrant.configure("2") do |config|
-  # Set server to Ubuntu 18.04
-  config.vm.box = "ubuntu/bionic64"
-
-  if Vagrant.has_plugin?("vagrant-hostmanager")
-    config.hostmanager.enabled = true
-    config.hostmanager.manage_host = true
-    config.hostmanager.ignore_private_ip = false
-    config.hostmanager.include_offline = false
-  end
+  # Set server base box
+  config.vm.box = base_box
 
   # Create a hostname, don't forget to put it to the `hosts` file
   # This will point to the server's default virtual host
@@ -64,7 +54,7 @@ Vagrant.configure("2") do |config|
 
   # If using VirtualBox
   config.vm.provider :virtualbox do |vb|
-    vb.name = "vagrant_"+config.vm.hostname
+    vb.name = "vagrant-" + config.vm.hostname
 
     vb.customize [
       "modifyvm", :id,
@@ -81,19 +71,6 @@ Vagrant.configure("2") do |config|
     # Prevent VMs running on Ubuntu to lose internet connection
     # vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     # vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-  end
-
-  # If using Vagrant-Cachier
-  # http://fgrehm.viewdocs.io/vagrant-cachier
-  if Vagrant.has_plugin?("vagrant-cachier")
-    # Configure cached packages to be shared between instances of the same base box.
-    # Usage docs: http://fgrehm.viewdocs.io/vagrant-cachier/usage
-    config.cache.scope = :box
-
-    config.cache.synced_folder_opts = {
-      type: :nfs,
-      mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
-    }
   end
 
   ####
@@ -126,21 +103,5 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "scripts/mysql.sh", args: [mysql_root_password, mysql_version, mysql_enable_remote, guest_projects_dir]
 
   # Provision MariaDB
-  # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [mysql_root_password, mariadb_version, mysql_enable_remote, guest_projects_dir]
-
-
-  ####
-  # In-Memory Stores
-  ##########
-
-  # Install Memcached
-  # config.vm.provision "shell", path: "scripts/memcached.sh"
-
-
-  ####
-  # Additional Languages
-  ##########
-
-  # Install Nodejs
-  # config.vm.provision "shell", path: "scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version)
+  # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [mysql_root_password, mariadb_version, mariadb_ubuntu_code_name, mysql_enable_remote, guest_projects_dir]
 end

@@ -67,5 +67,24 @@ sudo sed -i "s/;date.timezone =.*/date.timezone = ${1/\//\\/}/" $php_path/cli/ph
 
 sudo service $php_service restart
 
+# Install Composer
+EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+
+if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]
+then
+    >&2 printf "ERROR: Invalid installer signature\n"
+    rm composer-setup.php
+    exit 1
+fi
+
+sudo php composer-setup.php --quiet --install-dir=/usr/local/bin --filename=composer
+rm composer-setup.php
+
+echo 'export PATH="$PATH:~/.composer/vendor/bin"' >> /home/vagrant/.bashrc
+
+printf "Composer installed\n"
+
 ##### Complete #####
 printf "\n\nPHP provisioning complete.\n"
