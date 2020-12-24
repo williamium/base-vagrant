@@ -43,13 +43,6 @@ Vagrant.configure("2") do |config|
   # Set server to Ubuntu 18.04
   config.vm.box = "ubuntu/bionic64"
 
-  if Vagrant.has_plugin?("vagrant-hostmanager")
-    config.hostmanager.enabled = true
-    config.hostmanager.manage_host = true
-    config.hostmanager.ignore_private_ip = false
-    config.hostmanager.include_offline = false
-  end
-
   # Create a hostname, don't forget to put it to the `hosts` file
   # This will point to the server's default virtual host
   config.vm.hostname = hostname
@@ -81,19 +74,6 @@ Vagrant.configure("2") do |config|
     # Prevent VMs running on Ubuntu to lose internet connection
     # vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     # vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-  end
-
-  # If using Vagrant-Cachier
-  # http://fgrehm.viewdocs.io/vagrant-cachier
-  if Vagrant.has_plugin?("vagrant-cachier")
-    # Configure cached packages to be shared between instances of the same base box.
-    # Usage docs: http://fgrehm.viewdocs.io/vagrant-cachier/usage
-    config.cache.scope = :box
-
-    config.cache.synced_folder_opts = {
-      type: :nfs,
-      mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
-    }
   end
 
   ####
