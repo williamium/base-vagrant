@@ -51,7 +51,7 @@ Vagrant.configure("2") do |config|
 
   # If using VirtualBox
   config.vm.provider :virtualbox do |vb|
-    vb.name = "vagrant_"+config.vm.hostname
+    vb.name = "vagrant-" + config.vm.hostname
 
     vb.customize [
       "modifyvm", :id,
