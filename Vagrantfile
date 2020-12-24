@@ -33,12 +33,6 @@ mysql_enable_remote = "true" # remote access enabled when true
 php_timezone = server_timezone # http://php.net/manual/en/timezones.php
 php_version  = "7.4"           # Options: 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4
 
-nodejs_version  = "latest"   # By default "latest" will equal the latest stable version
-nodejs_packages = [          # List any global NodeJS packages that you want to install
-  #"gulp",
-  #"bower",
-]
-
 Vagrant.configure("2") do |config|
   # Set server to Ubuntu 18.04
   config.vm.box = "ubuntu/bionic64"
@@ -107,20 +101,4 @@ Vagrant.configure("2") do |config|
 
   # Provision MariaDB
   # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [mysql_root_password, mariadb_version, mysql_enable_remote, guest_projects_dir]
-
-
-  ####
-  # In-Memory Stores
-  ##########
-
-  # Install Memcached
-  # config.vm.provision "shell", path: "scripts/memcached.sh"
-
-
-  ####
-  # Additional Languages
-  ##########
-
-  # Install Nodejs
-  # config.vm.provision "shell", path: "scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version)
 end
