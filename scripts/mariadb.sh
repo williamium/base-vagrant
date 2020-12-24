@@ -8,7 +8,7 @@ echo ">>> Installing MariaDB"
 sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
 
 # Add repo for MariaDB
-sudo add-apt-repository "deb [arch=amd64,i386,ppc64el] http://mirrors.coreix.net/mariadb/repo/$2/ubuntu trusty main"
+sudo add-apt-repository "deb [arch=amd64,i386,ppc64el] http://mirrors.coreix.net/mariadb/repo/$2/ubuntu $3 main"
 
 # Update
 sudo apt-get update
@@ -23,7 +23,7 @@ sudo debconf-set-selections <<< "maria-db-$2 mysql-server/root_password_again pa
 sudo apt-get install -qq mariadb-server
 
 # Make Maria connectable from outside world without SSH tunnel
-if [ $3 == "true" ]; then
+if [ $4 == "true" ]; then
     printf "\n\nConfiguring remote MySQL access...\n"
 
     # enable remote access
@@ -42,7 +42,7 @@ fi
 sudo service mysql restart
 
 # Check for SQL files to import
-for path in $4/*; do
+for path in $5/*; do
     if [ -d "${path}" ]; then
         dirname="$(basename "${path}")"
 
