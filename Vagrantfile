@@ -17,8 +17,7 @@ guest_projects_dir = "/home/vagrant/sites"
 #   192.168.0.1 - 192.168.255.254
 server_ip       = "192.168.18.73"
 server_cpus     = "2"   # Cores
-# MariaDB may throw errors during "vagrant up" with less than 1024MB memory
-server_memory   = "384" # MB
+server_memory   = "512" # MB
 server_timezone = "Europe/London"
 
 # can be altered to your prefered locale, see http://docs.moodle.org/dev/Table_of_locales
