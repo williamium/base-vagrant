@@ -26,11 +26,11 @@ locale_language = "en_GB"
 locale_codeset  = "en_GB.UTF-8"
 
 # Database Configuration
-mysql_root_password      = "root" # We'll assume user "root"
 mysql_version            = "5.7"  # Options: 5.7
 mariadb_version          = "10.1" # Options: 10.0 | 10.1
 mariadb_ubuntu_code_name = "bionic"
-mysql_enable_remote      = "true" # remote access enabled when true
+db_root_password         = "root" # We'll assume user "root"
+db_enable_remote         = "true" # remote access enabled when true
 
 # Languages and Packages
 php_version  = "8.0"           # Options: 7.0 | 7.1 | 7.2 | 7.3 | 7.4 | 8.0
@@ -100,8 +100,8 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Provision MySQL
-  config.vm.provision "shell", path: "scripts/mysql.sh", args: [mysql_root_password, mysql_version, mysql_enable_remote, guest_projects_dir]
+  config.vm.provision "shell", path: "scripts/mysql.sh", args: [db_root_password, mysql_version, db_enable_remote, guest_projects_dir]
 
   # Provision MariaDB
-  # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [mysql_root_password, mariadb_version, mariadb_ubuntu_code_name, mysql_enable_remote, guest_projects_dir]
+  # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [db_root_password, mariadb_version, mariadb_ubuntu_code_name, db_enable_remote, guest_projects_dir]
 end
