@@ -33,8 +33,8 @@ mariadb_ubuntu_code_name = "bionic"
 mysql_enable_remote      = "true" # remote access enabled when true
 
 # Languages and Packages
+php_version  = "8.0"           # Options: 7.0 | 7.1 | 7.2 | 7.3 | 7.4 | 8.0
 php_timezone = server_timezone # http://php.net/manual/en/timezones.php
-php_version  = "7.4"           # Options: 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4
 
 Vagrant.configure("2") do |config|
   # Set server base box
