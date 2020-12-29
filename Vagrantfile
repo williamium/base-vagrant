@@ -17,8 +17,7 @@ guest_projects_dir = "/home/vagrant/sites"
 #   192.168.0.1 - 192.168.255.254
 server_ip       = "192.168.18.73"
 server_cpus     = "2"   # Cores
-# MariaDB may throw errors during "vagrant up" with less than 1024MB memory
-server_memory   = "384" # MB
+server_memory   = "512" # MB
 server_timezone = "Europe/London"
 
 # can be altered to your prefered locale, see http://docs.moodle.org/dev/Table_of_locales
@@ -26,15 +25,15 @@ locale_language = "en_GB"
 locale_codeset  = "en_GB.UTF-8"
 
 # Database Configuration
-mysql_root_password      = "root" # We'll assume user "root"
 mysql_version            = "5.7"  # Options: 5.7
-mariadb_version          = "10.1" # Options: 10.0 | 10.1
+mariadb_version          = "10.5" # Options: 10.1 | 10.2 | 10.3 | 10.4 | 10.5 - Ubuntu 20.04 (Focal Fossa) supports 10.3 and up
 mariadb_ubuntu_code_name = "bionic"
-mysql_enable_remote      = "true" # remote access enabled when true
+db_root_password         = "root" # We'll assume user "root"
+db_enable_remote         = "true" # Remote access enabled when true
 
 # Languages and Packages
+php_version  = "8.0"           # Options: 7.0 | 7.1 | 7.2 | 7.3 | 7.4 | 8.0
 php_timezone = server_timezone # http://php.net/manual/en/timezones.php
-php_version  = "7.4"           # Options: 5.6 | 7.0 | 7.1 | 7.2 | 7.3 | 7.4
 
 Vagrant.configure("2") do |config|
   # Set server base box
@@ -100,8 +99,8 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Provision MySQL
-  config.vm.provision "shell", path: "scripts/mysql.sh", args: [mysql_root_password, mysql_version, mysql_enable_remote, guest_projects_dir]
+  config.vm.provision "shell", path: "scripts/mysql.sh", args: [db_root_password, mysql_version, db_enable_remote, guest_projects_dir]
 
   # Provision MariaDB
-  # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [mysql_root_password, mariadb_version, mariadb_ubuntu_code_name, mysql_enable_remote, guest_projects_dir]
+  # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [db_root_password, mariadb_version, mariadb_ubuntu_code_name, db_enable_remote, guest_projects_dir]
 end

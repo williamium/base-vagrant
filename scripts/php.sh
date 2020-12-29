@@ -15,10 +15,10 @@ php_service="php$2-fpm"
 php_path="/etc/php/$2"
 
 case $2 in
-    "5.6"|"7.0"|"7.1")
-        sudo apt-get install -y php$2-cli php$2-fpm php$2-common php$2-imap php$2-json php$2-zip php$2-mbstring php$2-dom php$2-mcrypt php$2-curl php$2-mysqlnd php$2-gd php$2-imagick php$2-memcached php$2-intl php$2-xdebug;;
+    "7.0"|"7.1")
+        sudo apt-get install -y php$2-cli php$2-fpm php$2-common php$2-zip php$2-mbstring php$2-dom php$2-curl php$2-mysqlnd php$2-gd php$2-imagick php$2-intl php$2-xdebug php$2-mcrypt;;
     *)
-        sudo apt-get install -y php$2-cli php$2-fpm php$2-common php$2-imap php$2-json php$2-zip php$2-mbstring php$2-dom php$2-curl php$2-mysqlnd php$2-gd php$2-imagick php$2-memcached php$2-intl php$2-xdebug;;
+        sudo apt-get install -y php$2-cli php$2-fpm php$2-common php$2-zip php$2-mbstring php$2-dom php$2-curl php$2-mysqlnd php$2-gd php$2-imagick php$2-intl php$2-xdebug;;
 esac
 
 ##### PHP Configuration #####
@@ -26,13 +26,13 @@ printf "\n\nPHP configuration...\n"
 sudo sed -i '$a opcache.revalidate_freq = 0' $php_path/mods-available/opcache.ini
 
 # Set PHP FPM to listen on TCP instead of Socket
-# Listens on /var/run/php5-fpm.sock by default
+# Listens on /var/run/$php_service.sock by default
 # sudo sed -i "s/listen =.*/listen = 127.0.0.1:9000/" $php_path/fpm/pool.d/www.conf
 
 # Set PHP FPM allowed clients IP address
 sudo sed -i "s/;listen.allowed_clients/listen.allowed_clients/" $php_path/fpm/pool.d/www.conf
 
-# Set run-as user for PHP5-FPM processes to user/group "vagrant"
+# Set run-as user for PHP-FPM processes to user/group "vagrant"
 # to avoid permission errors from apps writing to files
 sudo sed -i "s/user = www-data/user = vagrant/" $php_path/fpm/pool.d/www.conf
 sudo sed -i "s/group = www-data/group = vagrant/" $php_path/fpm/pool.d/www.conf
