@@ -63,5 +63,5 @@ for path in $5/*; do
 done
 
 ##### Complete #####
-printf "\n\MariaDB provisioning complete. Remember to dump the database before destroying the VM by using the following SQL:\n
+printf "\n\nMariaDB provisioning complete. Remember to dump the database before destroying the VM by using the following SQL:\n
 mysqldump -uroot -p$1 DBNAME > /path/to/project/vagrant/db/dump/dump.sql\n"
