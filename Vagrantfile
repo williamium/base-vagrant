@@ -26,10 +26,10 @@ locale_codeset  = "en_GB.UTF-8"
 
 # Database Configuration
 mysql_version            = "5.7"  # Options: 5.7
-mariadb_version          = "10.1" # Options: 10.0 | 10.1
+mariadb_version          = "10.5" # Options: 10.1 | 10.2 | 10.3 | 10.4 | 10.5 - Ubuntu 20.04 (Focal Fossa) supports 10.3 and up
 mariadb_ubuntu_code_name = "bionic"
 db_root_password         = "root" # We'll assume user "root"
-db_enable_remote         = "true" # remote access enabled when true
+db_enable_remote         = "true" # Remote access enabled when true
 
 # Languages and Packages
 php_version  = "8.0"           # Options: 7.0 | 7.1 | 7.2 | 7.3 | 7.4 | 8.0
