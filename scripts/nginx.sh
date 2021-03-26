@@ -12,10 +12,10 @@ php_service="php$3-fpm"
 [[ -z $1 ]] && { echo "!!! IP address not set. Check the Vagrant file.\n"; exit 1; }
 
 # Add repo for latest stable nginx
-# sudo add-apt-repository -y ppa:nginx/stable
+sudo add-apt-repository -y ppa:ondrej/nginx
 
 # Add repo for latest mainline nginx
-sudo add-apt-repository -y ppa:nginx/development
+# sudo add-apt-repository -y ppa:ondrej/nginx-mainline
 
 # Update Again
 sudo apt-get update

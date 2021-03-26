@@ -4,21 +4,12 @@ echo ">>> Installing MariaDB"
 
 [[ -z $1 ]] && { echo "!!! MariaDB root password not set. Check the Vagrant file."; exit 1; }
 
-if [ $3 = "xenial" ]
-then
-    packages="software-properties-common gnupg-curl apt-transport-https"
-    repository="deb [arch=amd64,arm64,i386,ppc64el] https://mirrors.ukfast.co.uk/sites/mariadb/repo/$2/ubuntu $3 main"
-else
-    packages="software-properties-common dirmngr apt-transport-https"
-    repository="deb [arch=amd64,arm64,ppc64el] https://mirrors.ukfast.co.uk/sites/mariadb/repo/$2/ubuntu $3 main"
-fi
-
 # Import repo key
-sudo apt-get install -y $packages
+sudo apt-get install -y software-properties-common dirmngr apt-transport-https
 sudo apt-key adv --fetch-keys 'https://mariadb.org/mariadb_release_signing_key.asc'
 
 # Add repo for MariaDB
-sudo add-apt-repository $repository
+sudo add-apt-repository "deb [arch=amd64,arm64,ppc64el] https://mirrors.ukfast.co.uk/sites/mariadb/repo/$2/ubuntu $3 main"
 
 # Update
 sudo apt-get update

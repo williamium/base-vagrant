@@ -15,7 +15,7 @@ guest_projects_dir = "/home/vagrant/sites"
 #   10.0.0.1    - 10.255.255.254
 #   172.16.0.1  - 172.31.255.254
 #   192.168.0.1 - 192.168.255.254
-server_ip       = "192.168.18.73"
+server_ip       = "192.168.18.72"
 server_cpus     = "2"   # Cores
 server_memory   = "512" # MB
 server_timezone = "Europe/London"
@@ -99,8 +99,8 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Provision MySQL
-  config.vm.provision "shell", path: "scripts/mysql.sh", args: [db_root_password, mysql_version, db_enable_remote, guest_projects_dir]
+  # config.vm.provision "shell", path: "scripts/mysql.sh", args: [db_root_password, mysql_version, db_enable_remote, guest_projects_dir]
 
   # Provision MariaDB
-  # config.vm.provision "shell", path: "scripts/mariadb.sh", args: [db_root_password, mariadb_version, mariadb_ubuntu_code_name, db_enable_remote, guest_projects_dir]
+  config.vm.provision "shell", path: "scripts/mariadb.sh", args: [db_root_password, mariadb_version, mariadb_ubuntu_code_name, db_enable_remote, guest_projects_dir]
 end

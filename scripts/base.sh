@@ -10,10 +10,10 @@ sudo hostname $1
 printf "\n\nSetting locale...\n"
 sudo locale-gen $2 $3
 
-# Set timezone, for un-attended info see https://help.ubuntu.com/community/UbuntuTime#Using_the_Command_Line_.28unattended.29
+# Set timezone
 printf "\n\nSetting timezone...\n"
-echo $4 | sudo tee /etc/timezone
-sudo dpkg-reconfigure --frontend noninteractive tzdata
+sudo timedatectl set-timezone $4
+timedatectl
 
 # Download and update package lists
 printf "\n\nPackage manager updates...\n"
